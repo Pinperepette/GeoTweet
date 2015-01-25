@@ -24,5 +24,6 @@ launch the web server with
 python geotweet.py -s
 
 and open the browser on the link you see in terminal.
-# Image
+# Example Image:
+
 ![](https://github.com/Pinperepette/GeoTweet/blob/master/image.png)
