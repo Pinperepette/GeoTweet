@@ -50,17 +50,19 @@ check_USER = "x"
 
 BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE = range(8)
 
-
 def has_colours(stream):
-    if not hasattr(stream, "isatty"):
+    if not (hasattr(stream, "isatty") and stream.isatty()):
         return False
-    if not stream.isatty():
-        return False 
+    #if not hasattr(stream, "isatty"):
+    #   return False
+    #if not stream.isatty():
+    #    return False 
     try:
         import curses
         curses.setupterm()
         return curses.tigetnum("colors") > 2
     except:
+        # TODO: log console
         return False
 has_colours = has_colours(sys.stdout)
 
@@ -83,7 +85,7 @@ def logo_geotweet():
 
 def credit():
     printout("[+]" , GREEN)
-    print ("Create by @Pinperepette, @Daniele_kk, @eddy_mane, @porelmorro, @grostein"+ "\n")
+    print ("Create by @Pinperepette, @Daniele_kk, @eddy_mane, @porelmorro, @grostein, @ludo237"+ "\n")
 
 
 def usage():
@@ -104,12 +106,13 @@ def usage():
 
 def http_run():
     printout("[HTTP RUN:]   ", YELLOW)
-    print " localhost:8000 "
+    #Localhost 8000 is busy most of the time
+    print " localhost:1337 "
     printout("[STOP:]   ", RED)
     print " press ctrl + c "
     try:
         Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
-        httpd = SocketServer.TCPServer(("", 8000), Handler)
+        httpd = SocketServer.TCPServer(("", 1337), Handler)
         httpd.serve_forever()
 
     except KeyboardInterrupt:
